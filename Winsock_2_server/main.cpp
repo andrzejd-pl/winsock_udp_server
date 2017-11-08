@@ -12,6 +12,7 @@ int main() {
 		while (1) {
 			sockaddr_in add = Socket.RecvFrom(buffer, sizeof(buffer));
 
+
 			std::string input(buffer);
 			std::reverse(std::begin(input), std::end(input));
 			Socket.SendTo(add, input.c_str(), input.size());
