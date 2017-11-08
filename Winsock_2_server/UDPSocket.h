@@ -16,5 +16,8 @@ public:
 	void SendTo(sockaddr_in& address, const char* buffer, int len, int flags = 0);
 	sockaddr_in RecvFrom(char* buffer, int len, int flags = 0);
 	void Bind(unsigned short port);
+
+	//method using to run default running in new thread
+	void thread();
 };
 
