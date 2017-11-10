@@ -13,7 +13,7 @@ void sock(bool &stop) {
 
 	Socket.Bind(100);
 
-	char buffer[100];
+	char buffer[2];
 
 	while (!stop) {
 		sockaddr_in add = Socket.RecvFrom(buffer, sizeof(buffer));
