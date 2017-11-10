@@ -6,7 +6,7 @@ int main() {
 	try {
 		WSASession Session;
 		UDPSocket Socket;
-		char buffer[100];
+		char buffer[2];
 
 		Socket.Bind(100);
 		while (1) {
