@@ -12,7 +12,7 @@ Packet::Packet(const char* rawData, const unsigned short size) {
 	id |= ((buff >> 5) & 0x07);
 	ack = 0 | ((buff >> 4) & 0x01);
 	overflow = 0 | ((buff >> 3) & 0x01);
-	bad_respone = 0 | ((buff >> 2) & 0x01);
+	bad_response = 0 | ((buff >> 2) & 0x01);
 	bad_client = 0 | ((buff >> 1) & 0x01);
 }
 
@@ -27,7 +27,11 @@ std::string Packet::convertToSend() const {
 
 	buff = 0;
 	buff |= (id << 5);
-	buff |= (0x0F);
+	buff |= (ack << 4);
+	buff |= (overflow << 3);
+	buff |= (error << 2);
+	buff |= (bad_response << 1);
+	buff |= (bad_client);
 	rt.push_back(buff);
 
 	return rt;
@@ -43,6 +47,26 @@ unsigned short Packet::getResponse() const {
 
 unsigned short Packet::getId() const {
 	return id;
+}
+
+unsigned short Packet::getAck() const {
+	return ack;
+}
+
+unsigned short Packet::getError() const {
+	return error;
+}
+
+unsigned short Packet::getOverflow() const {
+	return overflow;
+}
+
+unsigned short Packet::getBadResponse() const {
+	return bad_response;
+}
+
+unsigned short Packet::getBadClient() const {
+	return bad_client;
 }
 
 Packet::PacketBuilder Packet::PacketBuilder::set_operation(const unsigned short operation) {
@@ -75,8 +99,8 @@ Packet::PacketBuilder Packet::PacketBuilder::set_overflow(const unsigned short o
 	return *this;
 }
 
-Packet::PacketBuilder Packet::PacketBuilder::set_bad_respone(const unsigned short bad_respone) {
-	this->bad_respone = bad_respone;
+Packet::PacketBuilder Packet::PacketBuilder::set_bad_response(const unsigned short bad_respone) {
+	this->bad_response = bad_respone;
 	return *this;
 }
 

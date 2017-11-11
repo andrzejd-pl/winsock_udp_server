@@ -28,9 +28,24 @@ int main() {
 			std::cout << "Packet from " << ip << " contains fields: \n\t" << "operation - " << packet.getOperation() <<
 				"\n\t" << "response - " << packet.getResponse() <<
 				"\n\t" << "id - " << packet.getId() << 
+				"\n\t" << "ack - " << packet.getAck() <<
+				"\n\t" << "overflow - " << packet.getOverflow() <<
+				"\n\t" << "bad response - " << packet.getBadResponse() <<
+				"\n\t" << "bad client - " << packet.getBadClient() <<
 				std::endl;
 
-			std::string input(buffer);
+			packet = Packet::PacketBuilder()
+				.set_operation(0)
+				.set_response(0)
+				.set_ack(1)
+				.set_bad_client(0)
+				.set_bad_response(0)
+				.set_error(0)
+				.set_id(0)
+				.set_overflow(0)
+				.build();
+
+			std::string input(packet.convertToSend());
 			
 			Socket.SendTo(add, input.c_str(), input.size());
 
