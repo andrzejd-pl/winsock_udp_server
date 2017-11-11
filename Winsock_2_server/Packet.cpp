@@ -10,6 +10,10 @@ Packet::Packet(const char* rawData, const unsigned short size) {
 
 	buff = rawData[1];
 	id |= ((buff >> 5) & 0x07);
+	ack = 0 | ((buff >> 4) & 0x01);
+	overflow = 0 | ((buff >> 3) & 0x01);
+	bad_respone = 0 | ((buff >> 2) & 0x01);
+	bad_client = 0 | ((buff >> 1) & 0x01);
 }
 
 std::string Packet::convertToSend() const {

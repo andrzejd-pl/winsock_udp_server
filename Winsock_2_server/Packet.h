@@ -2,7 +2,7 @@
 #include <string>
 
 /*
-	TODO: 
+	TODO:
 	1) walidowaæ pola struktury
 	2) ...
 */
@@ -17,8 +17,19 @@ private:
 	unsigned short overflow;
 	unsigned short bad_respone;
 	unsigned short bad_client;
-	Packet(const unsigned short _opr, const unsigned short _ret, const unsigned short _id, const bool _ack, const bool _error, const bool _overflow, const bool _bad_response, const bool _bad_client);
-	Packet() {}
+
+
+	Packet(const unsigned short operation, const unsigned short response, const unsigned short id, const unsigned short ack, const unsigned short error, const unsigned short overflow, const unsigned short bad_respone, const unsigned short bad_client)
+		: operation(operation),
+		response(response),
+		id(id),
+		ack(ack),
+		error(error),
+		overflow(overflow),
+		bad_respone(bad_respone),
+		bad_client(bad_client) {}
+
+	Packet() : operation(0), response(0), id(0), ack(0), error(0), overflow(0), bad_respone(0), bad_client(0) {}
 
 public:
 	Packet(const char* rawData, const unsigned short size);
