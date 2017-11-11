@@ -22,7 +22,5 @@ public:
 
 	unsigned short getResponse() const;
 
-	unsigned short getAckFlag() const;
-
 	unsigned short getId() const;
 };

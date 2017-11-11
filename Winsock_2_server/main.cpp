@@ -17,13 +17,18 @@ int main() {
 			sockaddr_in add = Socket.RecvFrom(buffer, sizeof(buffer));
 
 			Packet packet(buffer, 2);
-			sockaddr* sock = reinterpret_cast<sockaddr *>(&add);
-			IN_ADDR addr = add.sin_addr;
+			
+			/*read address ip sender's*/
+			
 			char ip[20];
-
 			InetNtop(AF_INET, &(add.sin_addr.s_addr), ip, 20);
 
-			std::cout << "Packet from: " << ip << std::endl;
+			/*-----------------*/
+
+			std::cout << "Packet from " << ip << " contains fields: \n\t" << "operation - " << packet.getOperation() <<
+				"\n\t" << "response - " << packet.getResponse() <<
+				"\n\t" << "id - " << packet.getId() << 
+				std::endl;
 
 			std::string input(buffer);
 			
