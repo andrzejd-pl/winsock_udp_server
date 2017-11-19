@@ -63,6 +63,27 @@ Packet::PacketBuilder Packet::GenerateIdPacketBuilder::set_response(const unsign
 	return *this;
 }
 
+Packet Packet::GenerateIdPacketBuilder::build(const std::string& data) {
+	Packet rt(data.data(), data.size());
+	if (rt.getOperation() != 0 || rt.getResponse() != 0 || rt.getId() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet Packet::GenerateIdPacketBuilder::build(const std::vector<char>& data) {
+	Packet rt(data.data(), data.size());
+	if (rt.getOperation() != 0 || rt.getResponse() != 0 || rt.getId() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet Packet::GenerateIdPacketBuilder::build(const char* data, const unsigned short size) {
+	Packet rt(data, size);
+	if (rt.getOperation() != 0 || rt.getResponse() != 0 || rt.getId() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
 Packet::StartPacketBuilder::StartPacketBuilder() : PacketBuilder() {
 	operation = 2;
 	response = 0;
@@ -95,6 +116,30 @@ Packet::PacketBuilder Packet::EndPacketBuilder::set_operation(const unsigned sho
 
 Packet::PacketBuilder Packet::EndPacketBuilder::set_response(const unsigned short response) {
 	return *this;
+}
+
+Packet Packet::EndPacketBuilder::build(const std::string& data)
+{
+	Packet rt(data.data(), data.size());
+	if (rt.getOperation() != 15 || rt.getResponse() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet Packet::EndPacketBuilder::build(const std::vector<char>& data)
+{
+	Packet rt(data.data(), data.size());
+	if (rt.getOperation() != 15 || rt.getResponse() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet Packet::EndPacketBuilder::build(const char* data, const unsigned short size)
+{
+	Packet rt(data, size);
+	if (rt.getOperation() != 15 || rt.getResponse() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
 }
 
 std::string Packet::convertToSend() const {

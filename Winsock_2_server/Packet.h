@@ -72,7 +72,6 @@ public:
 		virtual Packet build(const std::vector<char>& data);
 		virtual Packet build(const char* data, const unsigned short size);
 
-		//tu skoñczy³em
 	};
 
 	class GenerateIdPacketBuilder : public PacketBuilder {
@@ -81,6 +80,10 @@ public:
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
 		virtual PacketBuilder set_response(const unsigned short response);
+
+		virtual Packet build(const std::string& data);
+		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const char* data, const unsigned short size);
 	};
 
 	class StartPacketBuilder : public PacketBuilder {
@@ -104,6 +107,10 @@ public:
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
 		virtual PacketBuilder set_response(const unsigned short response);
+
+		virtual Packet build(const std::string& data);
+		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const char* data, const unsigned short size);
 	};
 };
 
