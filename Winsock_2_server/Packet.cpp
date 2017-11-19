@@ -12,9 +12,42 @@ Packet::Packet(const char* rawData, const unsigned short size) {
 	id |= ((buff >> 5) & 0x07);
 }
 
+Packet Packet::PacketBuilder::build(const char* data, const unsigned short size) {
+	return Packet(data, size);
+}
+
 Packet::AckPacketBuilder::AckPacketBuilder() : PacketBuilder() {
 	operation = 6;
 	response = 0;
+}
+
+Packet::PacketBuilder Packet::AckPacketBuilder::set_operation(const unsigned short operation) {
+	return *this;
+}
+
+Packet::PacketBuilder Packet::AckPacketBuilder::set_response(const unsigned short response) {
+	return *this;
+}
+
+Packet Packet::AckPacketBuilder::build(const std::string& data) {
+	Packet rt(data.data(), data.size());
+	if (rt.getOperation() != 6 || rt.getResponse() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet Packet::AckPacketBuilder::build(const std::vector<char>& data) {
+	Packet rt(data.data(), data.size());
+	if (rt.getOperation() != 6 || rt.getResponse() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet Packet::AckPacketBuilder::build(const char* data, const unsigned short size) {
+	Packet rt(data, size);
+	if (rt.getOperation() != 6 || rt.getResponse() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
 }
 
 Packet::GenerateIdPacketBuilder::GenerateIdPacketBuilder() : PacketBuilder() {
@@ -22,18 +55,46 @@ Packet::GenerateIdPacketBuilder::GenerateIdPacketBuilder() : PacketBuilder() {
 	response = 0;
 }
 
+Packet::PacketBuilder Packet::GenerateIdPacketBuilder::set_operation(const unsigned short operation) {
+	return *this;
+}
+
+Packet::PacketBuilder Packet::GenerateIdPacketBuilder::set_response(const unsigned short response) {
+	return *this;
+}
+
 Packet::StartPacketBuilder::StartPacketBuilder() : PacketBuilder() {
 	operation = 2;
 	response = 0;
+}
+
+Packet::PacketBuilder Packet::StartPacketBuilder::set_operation(const unsigned short operation) {
+	return *this;
+}
+
+Packet::PacketBuilder Packet::StartPacketBuilder::set_response(const unsigned short response) {
+	return *this;
 }
 
 Packet::CorrectAnswerPacketBuilder::CorrectAnswerPacketBuilder() : PacketBuilder() {
 	operation = 5;
 }
 
+Packet::PacketBuilder Packet::CorrectAnswerPacketBuilder::set_operation(const unsigned short operation) {
+	return *this;
+}
+
 Packet::EndPacketBuilder::EndPacketBuilder() : PacketBuilder() {
 	operation = 15;
 	response = 0;
+}
+
+Packet::PacketBuilder Packet::EndPacketBuilder::set_operation(const unsigned short operation) {
+	return *this;
+}
+
+Packet::PacketBuilder Packet::EndPacketBuilder::set_response(const unsigned short response) {
+	return *this;
 }
 
 std::string Packet::convertToSend() const {
@@ -81,10 +142,25 @@ Packet::PacketBuilder Packet::PacketBuilder::set_id(const unsigned short id) {
 
 Packet Packet::PacketBuilder::build() {
 	return Packet(operation, response, id);
+}
 
+Packet Packet::PacketBuilder::build(const std::string& data) {
+	return Packet(data.data(), data.size());
+}
+
+Packet Packet::PacketBuilder::build(const std::vector<char>& data) {
+	return Packet(data.data(), data.size());
 }
 
 Packet::ExpectPacketBuilder::ExpectPacketBuilder() : PacketBuilder() {
 	operation = 1;
 	response = 0;
+}
+
+Packet::PacketBuilder Packet::ExpectPacketBuilder::set_operation(const unsigned short operation) {
+	return *this;
+}
+
+Packet::PacketBuilder Packet::ExpectPacketBuilder::set_response(const unsigned short response) {
+	return *this;
 }
