@@ -12,6 +12,30 @@ Packet::Packet(const char* rawData, const unsigned short size) {
 	id |= ((buff >> 5) & 0x07);
 }
 
+Packet::AckPacketBuilder::AckPacketBuilder() : PacketBuilder() {
+	operation = 6;
+	response = 0;
+}
+
+Packet::GenerateIdPacketBuilder::GenerateIdPacketBuilder() : PacketBuilder() {
+	operation = 0;
+	response = 0;
+}
+
+Packet::StartPacketBuilder::StartPacketBuilder() : PacketBuilder() {
+	operation = 2;
+	response = 0;
+}
+
+Packet::CorrectAnswerPacketBuilder::CorrectAnswerPacketBuilder() : PacketBuilder() {
+	operation = 5;
+}
+
+Packet::EndPacketBuilder::EndPacketBuilder() : PacketBuilder() {
+	operation = 15;
+	response = 0;
+}
+
 std::string Packet::convertToSend() const {
 	std::string rt;
 	char buff = 0;
@@ -58,4 +82,9 @@ Packet::PacketBuilder Packet::PacketBuilder::set_id(const unsigned short id) {
 Packet Packet::PacketBuilder::build() {
 	return Packet(operation, response, id);
 
+}
+
+Packet::ExpectPacketBuilder::ExpectPacketBuilder() : PacketBuilder() {
+	operation = 1;
+	response = 0;
 }
