@@ -64,7 +64,7 @@ int main() {
 		socket.Bind(100);
 		while (true) {
 			sockaddr_in add = socket.RecvFrom(buffer.data(), buffer.size());
-			Packet packet(buffer.data(), 2);
+			Packet packet = Packet::GenerateIdPacketBuilder().build(buffer);
 
 			if (packet.getOperation() != 0) {
 				/*  koniec po³¹czenia  */
@@ -90,7 +90,7 @@ int main() {
 
 			//oczekiwanie na ack od klienta
 			add = socket.RecvFrom(buffer.data(), buffer.size());
-			packet = Packet(buffer.data(), 2);
+			packet = Packet::GenerateIdPacketBuilder().build(buffer);
 			if (packet.getOperation() != 6) {
 				auto id = packet.getId();
 				/*  koniec po³¹czenia  */
@@ -102,7 +102,7 @@ int main() {
 			}
 
 			add = socket.RecvFrom(buffer.data(), buffer.size());
-			packet = Packet(buffer.data(), 2);
+			packet = Packet::GenerateIdPacketBuilder().build(buffer);
 			if (packet.getOperation() != 3) {
 				auto id = packet.getId();
 				/*  koniec po³¹czenia  */

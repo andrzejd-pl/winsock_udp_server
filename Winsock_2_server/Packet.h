@@ -4,7 +4,6 @@
 
 /*
 	TODO:
-	1) walidowaæ pola struktury
 	2) ...
 */
 
