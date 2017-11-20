@@ -2,7 +2,6 @@
 #include "WSASession.h"
 #include "UDPSocket.h"
 #include "Packet.h"
-#include <WS2tcpip.h>
 #include <vector>
 #include <array>
 
@@ -11,46 +10,20 @@
 /*
 	TODO:
 	- klasy dla ka¿dego typu pakietów
-	- wyj¹tki
+	- wyj¹tki i ³apanie wyj¹tków (zmiana w builderach z exception na w³asny autorski wyj¹tek)
+	- w¹tki - 1 zarz¹dzaj¹cy - czyli main i 2 dla 2 klientów
+	- klasa klienta
 */
 
 int main() {
 	try {
 
-		//WSASession Session;
-		//UDPSocket Socket;
-		//char buffer[3];
-		//
-		//Socket.Bind(100);
-		//while (1) {
-		//	sockaddr_in add = Socket.RecvFrom(buffer, sizeof(buffer));
-		//
-		//	Packet packet(buffer, 2);
-		//
 		//	/*read address ip sender's*/
 		//
 		//	char ip[20];
 		//	InetNtop(AF_INET, &(add.sin_addr.s_addr), ip, 20);
 		//
 		//	/*-----------------*/
-		//
-		//	std::cout << "Packet from " << ip << " contains fields:" <<
-		//		"\n\t" << "operation - " << packet.getOperation() <<
-		//		"\n\t" << "response - " << packet.getResponse() <<
-		//		"\n\t" << "id - " << packet.getId() <<
-		//		std::endl;
-		//
-		//	packet = Packet::PacketBuilder()
-		//		.set_operation(0)
-		//		.set_response(0)
-		//		.set_id(0)
-		//		.build();
-		//
-		//	std::string input(packet.convertToSend());
-		//
-		//	Socket.SendTo(add, input.c_str(), input.size());
-		//
-		//}
 
 		WSASession session;
 		UDPSocket socket;
@@ -74,47 +47,6 @@ int main() {
 
 				continue;
 			}
-
-			//pierwszy pakiet ack
-			packet = Packet::AckPacketBuilder()
-				.set_id(0)
-				.build();
-
-			socket.SendTo(add, packet.convertToSend());
-
-			//pakiet z id dla klienta
-			packet = Packet::GenerateIdPacketBuilder()
-				.set_id(client_id++)
-				.build();
-			socket.SendTo(add, packet.convertToSend());
-
-			//oczekiwanie na ack od klienta
-			add = socket.RecvFrom(buffer.data(), buffer.size());
-			packet = Packet::GenerateIdPacketBuilder().build(buffer);
-			if (packet.getOperation() != 6) {
-				auto id = packet.getId();
-				/*  koniec po³¹czenia  */
-				packet = Packet::EndPacketBuilder().set_id(id).build();
-
-				socket.SendTo(add, packet.convertToSend());
-
-				continue;
-			}
-
-			add = socket.RecvFrom(buffer.data(), buffer.size());
-			packet = Packet::GenerateIdPacketBuilder().build(buffer);
-			if (packet.getOperation() != 3) {
-				auto id = packet.getId();
-				/*  koniec po³¹czenia  */
-				packet = Packet::EndPacketBuilder().set_id(id).build();
-
-				socket.SendTo(add, packet.convertToSend());
-
-				continue;
-			}
-
-			//dodanie liczby L otrzymanej od klienta
-			numbersL[0] = packet.getResponse();
 
 		}
 	}

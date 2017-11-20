@@ -79,6 +79,29 @@ sockaddr_in UDPSocket::RecvFrom(char* buffer, int len, int flags) {
 	return from;
 }
 
+sockaddr_in UDPSocket::RecvFrom(std::vector<char>& buffer, const int len, int flags)
+{
+	buffer.resize(len);
+	sockaddr_in from;
+	int size = sizeof(from);
+	int ret = recvfrom(sock, buffer.data(), buffer.size(), flags, reinterpret_cast<SOCKADDR *>(&from), &size);
+	if (ret < 0)
+		throw std::system_error(WSAGetLastError(), std::system_category(), "recvfrom failed");
+
+	return from;
+}
+
+std::vector<char> UDPSocket::RecvFrom(sockaddr_in& from, const int len, const int flags)
+{
+	std::vector<char> buffer(len);
+	int size = sizeof(from);
+	int ret = recvfrom(sock, buffer.data(), buffer.size(), flags, reinterpret_cast<SOCKADDR *>(&from), &size);
+	if (ret < 0)
+		throw std::system_error(WSAGetLastError(), std::system_category(), "recvfrom failed");
+
+	return buffer;
+}
+
 void UDPSocket::Bind(unsigned short port) {
 	sockaddr_in add;
 	add.sin_family = AF_INET;
