@@ -13,7 +13,9 @@ public:
 	~Client() {}
 
 	void sendMessage(const Packet& message);
-
 	Packet receiveMessage();
+	std::string getAddress();
+	std::string getPort();
+
 };
 
