@@ -23,6 +23,7 @@ private:
 	Packet() : operation(0), response(0), id(0) {}
 
 	Packet(const char* rawData, const unsigned short size);
+	Packet(const std::vector<char>& rawData);
 public:
 
 	std::string convertToSend() const;

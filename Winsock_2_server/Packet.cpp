@@ -12,6 +12,19 @@ Packet::Packet(const char* rawData, const unsigned short size) {
 	id |= ((buff >> 5) & 0x07);
 }
 
+Packet::Packet(const std::vector<char>& rawData)
+{
+	if (rawData.size() > 2) throw std::exception("To large buffor!!!");
+
+	unsigned short buff = rawData[0];
+	operation = 0 | ((buff >> 4) & 0x0F);
+	response = 0 | ((buff >> 1) & 0x07);
+	id = 0 | ((buff & 0x01) << 3);
+
+	buff = rawData[1];
+	id |= ((buff >> 5) & 0x07);
+}
+
 Packet Packet::PacketBuilder::build(const char* data, const unsigned short size) {
 	return Packet(data, size);
 }
@@ -71,7 +84,7 @@ Packet Packet::GenerateIdPacketBuilder::build(const std::string& data) {
 }
 
 Packet Packet::GenerateIdPacketBuilder::build(const std::vector<char>& data) {
-	Packet rt(data.data(), data.size());
+	Packet rt(data);
 	if (rt.getOperation() != 0 || rt.getResponse() != 0 || rt.getId() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
