@@ -1,12 +1,6 @@
 #pragma once
 #include <vector>
 
-/*
-	TODO:
-	2)
-	3)
-*/
-
 class Packet {
 private:
 	unsigned short operation;

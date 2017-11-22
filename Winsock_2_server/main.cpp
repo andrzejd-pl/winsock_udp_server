@@ -23,8 +23,8 @@
 		GenerateId - Generowanie id (0 - 0000)
 		Start - Start rozgrywki (2 - 0010)
 		brakuje:
-		przes³anie liczby L (3 - 0011)
-		przes³anie liczby prób (4 - 0100)
+		Response - przes³anie liczby L (3 - 0011)
+		Assay - przes³anie liczby prób (4 - 0100)
 */
 
 int main() {
