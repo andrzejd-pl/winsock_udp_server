@@ -86,6 +86,10 @@ public:
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
 		virtual PacketBuilder set_response(const unsigned short response);
+
+		virtual Packet build(const std::string& data);
+		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const char* data, const unsigned short size);
 	};
 
 	class CorrectAnswerPacketBuilder : public PacketBuilder {
@@ -93,6 +97,10 @@ public:
 		CorrectAnswerPacketBuilder();
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
+
+		virtual Packet build(const std::string& data);
+		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const char* data, const unsigned short size);
 	};
 
 	class EndPacketBuilder : public PacketBuilder {
@@ -112,7 +120,6 @@ public:
 		ResponsePacketBuilder();
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
-		virtual PacketBuilder set_response(const unsigned short response);
 
 		virtual Packet build(const std::string& data);
 		virtual Packet build(const std::vector<char>& data);
@@ -124,13 +131,9 @@ public:
 		AssayPacketBuilder();
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
-		virtual PacketBuilder set_response(const unsigned short response);
 
 		virtual Packet build(const std::string& data);
 		virtual Packet build(const std::vector<char>& data);
 		virtual Packet build(const char* data, const unsigned short size);
 	};
-
-
 };
-

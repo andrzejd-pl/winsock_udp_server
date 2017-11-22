@@ -22,7 +22,7 @@
 		Expect - Oczekiwanie (1 - 0001)
 		GenerateId - Generowanie id (0 - 0000)
 		Start - Start rozgrywki (2 - 0010)
-		brakuje:
+		do dokoñczenia:
 		Response - przes³anie liczby L (3 - 0011)
 		Assay - przes³anie liczby prób (4 - 0100)
 */
@@ -65,7 +65,10 @@ int main() {
 			socket.SendTo(add, packet.convertToSend());
 			packet = Packet::StartPacketBuilder().set_id(client_id).build();
 			socket.SendTo(add, packet.convertToSend());
-
+			packet = Packet::AssayPacketBuilder().set_response(5).set_id(client_id).build();
+			socket.SendTo(add, packet.convertToSend());
+			packet = Packet::ResponsePacketBuilder().set_response(4).set_id(client_id).build();
+			socket.SendTo(add, packet.convertToSend());
 			//continue;
 		//}
 
