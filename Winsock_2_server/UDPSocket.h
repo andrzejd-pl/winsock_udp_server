@@ -5,8 +5,7 @@
 #pragma comment (lib, "Ws2_32.lib")
 #pragma once
 
-class UDPSocket
-{
+class UDPSocket {
 private:
 	SOCKET sock;
 public:
@@ -23,7 +22,7 @@ public:
 
 	sockaddr_in RecvFrom(char* buffer, int len, int flags = 0);
 	sockaddr_in RecvFrom(std::vector<char>& buffer, const int len, int flags = 0);
-	
+
 	std::vector<char> RecvFrom(sockaddr_in& from, const int len, const int flags = 0);
 
 	void Bind(unsigned short port);

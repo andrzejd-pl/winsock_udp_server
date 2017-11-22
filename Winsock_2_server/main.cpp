@@ -13,7 +13,7 @@
 	- wyj¹tki i ³apanie wyj¹tków (zmiana w builderach z exception na w³asny autorski wyj¹tek)
 	- w¹tki - 1 zarz¹dzaj¹cy - czyli main i 2 dla 2 klientów
 	- klasa klienta
-	- klasy builderów dla brakuj¹cych pakietów 
+	- klasy builderów dla brakuj¹cych pakietów
 
 	Buildery:
 		End - Koniec po³¹czenia (15 - 1111)
@@ -41,41 +41,40 @@ int main() {
 		UDPSocket socket;
 		std::vector<char> buffer(2);
 
-		
+
 
 		unsigned int client_id = 1;
-		std::array<unsigned short, 2> numbersL;
+		//std::array<unsigned short, 2> numbersL;
 
 		socket.Bind(100);
-		while (true) {
+		while(true) {
 			sockaddr_in add = socket.RecvFrom(buffer, 2);
-
-			Packet packet = Packet::GenerateIdPacketBuilder().build(buffer);
 
 			//if (packet.getOperation() != 0) {
 				/*  koniec po³¹czenia  */
-				packet = Packet::EndPacketBuilder().set_id(1).build();
-				socket.SendTo(add, packet.convertToSend());
+			Packet packet = Packet::EndPacketBuilder().set_id(client_id).build();
+			socket.SendTo(add, packet.convertToSend());
 
-				packet = Packet::AckPacketBuilder().set_id(1).build();
-				socket.SendTo(add, packet.convertToSend());
-				packet = Packet::CorrectAnswerPacketBuilder().set_id(1).build();
-				socket.SendTo(add, packet.convertToSend());
-				packet = Packet::ExpectPacketBuilder().set_id(1).build();
-				socket.SendTo(add, packet.convertToSend());
-				packet = Packet::GenerateIdPacketBuilder().set_id(1).build();
-				socket.SendTo(add, packet.convertToSend());
-				packet = Packet::StartPacketBuilder().set_id(1).build();
-				socket.SendTo(add, packet.convertToSend());
-				//continue;
-			//}
+			packet = Packet::AckPacketBuilder().set_id(client_id).build();
+			socket.SendTo(add, packet.convertToSend());
+			packet = Packet::CorrectAnswerPacketBuilder().set_id(client_id).build();
+			socket.SendTo(add, packet.convertToSend());
+			packet = Packet::ExpectPacketBuilder().set_id(client_id).build();
+			socket.SendTo(add, packet.convertToSend());
+			packet = Packet::GenerateIdPacketBuilder().set_id(client_id).build();
+			socket.SendTo(add, packet.convertToSend());
+			packet = Packet::StartPacketBuilder().set_id(client_id).build();
+			socket.SendTo(add, packet.convertToSend());
 
-				break;
+			//continue;
+		//}
+
+			break;
 
 
 		}
 	}
-	catch (std::system_error& e) {
+	catch(std::system_error& e) {
 		std::cout << e.what();
 	}
 	return 0;

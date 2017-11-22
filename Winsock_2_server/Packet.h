@@ -1,10 +1,9 @@
 #pragma once
-#include <string>
 #include <vector>
 
 /*
 	TODO:
-	2) 
+	2)
 	3)
 */
 
@@ -40,7 +39,7 @@ public:
 	public:
 		PacketBuilder() : operation(), response(), id() {}
 
-		
+
 		virtual PacketBuilder set_operation(const unsigned short operation);
 		virtual PacketBuilder set_response(const unsigned short response);
 		virtual PacketBuilder set_id(const unsigned short id);
@@ -113,5 +112,31 @@ public:
 		virtual Packet build(const std::vector<char>& data);
 		virtual Packet build(const char* data, const unsigned short size);
 	};
+
+	class ResponsePacketBuilder : public PacketBuilder {
+	public:
+		ResponsePacketBuilder();
+
+		virtual PacketBuilder set_operation(const unsigned short operation);
+		virtual PacketBuilder set_response(const unsigned short response);
+
+		virtual Packet build(const std::string& data);
+		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const char* data, const unsigned short size);
+	};
+
+	class AssayPacketBuilder : public PacketBuilder {
+	public:
+		AssayPacketBuilder();
+
+		virtual PacketBuilder set_operation(const unsigned short operation);
+		virtual PacketBuilder set_response(const unsigned short response);
+
+		virtual Packet build(const std::string& data);
+		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const char* data, const unsigned short size);
+	};
+
+
 };
 

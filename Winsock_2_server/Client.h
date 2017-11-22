@@ -3,8 +3,7 @@
 
 class Packet;
 
-class Client
-{
+class Client {
 private:
 	sockaddr_in add;
 	UDPSocket& sock;
