@@ -12,7 +12,7 @@ Packet::Packet(const char* rawData, const unsigned short size) {
 	id |= ((buff >> 5) & 0x07);
 }
 
-Packet::Packet(const std::vector<char>& rawData) {
+Packet::Packet(const std::vector<char> rawData) {
 	if(rawData.size() > 2) throw std::exception("To large buffor!!!");
 
 	unsigned short buff = rawData.at(0);
@@ -29,7 +29,7 @@ Packet Packet::PacketBuilder::build(const char* data, const unsigned short size)
 }
 
 Packet::AckPacketBuilder::AckPacketBuilder() : PacketBuilder() {
-	operation = 6;
+	operation = 7;
 	response = 0;
 }
 
@@ -41,14 +41,14 @@ Packet::PacketBuilder Packet::AckPacketBuilder::set_response(const unsigned shor
 	return static_cast<PacketBuilder>(*this);
 }
 
-Packet Packet::AckPacketBuilder::build(const std::string& data) {
+Packet Packet::AckPacketBuilder::build(const std::string data) {
 	Packet rt(std::vector<char>(data.begin(), data.end()));
 	if(rt.getOperation() != 6 || rt.getResponse() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
 }
 
-Packet Packet::AckPacketBuilder::build(const std::vector<char>& data) {
+Packet Packet::AckPacketBuilder::build(const std::vector<char> data) {
 	Packet rt(data);
 	if(rt.getOperation() != 6 || rt.getResponse() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
@@ -58,6 +58,35 @@ Packet Packet::AckPacketBuilder::build(const std::vector<char>& data) {
 Packet Packet::AckPacketBuilder::build(const char* data, const unsigned short size) {
 	Packet rt(data, size);
 	if(rt.getOperation() != 6 || rt.getResponse() != 0)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet::AnswerPacketBuilder::AnswerPacketBuilder() {
+	operation = 5;
+}
+
+Packet::PacketBuilder Packet::AnswerPacketBuilder::set_operation(const unsigned short operation) {
+	return static_cast<PacketBuilder>(*this);
+}
+
+Packet Packet::AnswerPacketBuilder::build(const std::string data) {
+	Packet rt(std::vector<char>(data.begin(), data.end()));
+	if(rt.getOperation() != 5)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet Packet::AnswerPacketBuilder::build(const std::vector<char> data) {
+	Packet rt(data);
+	if(rt.getOperation() != 5)
+		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
+	return rt;
+}
+
+Packet Packet::AnswerPacketBuilder::build(const char* data, const unsigned short size) {
+	Packet rt(data, size);
+	if(rt.getOperation() != 5)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
 }
@@ -75,14 +104,14 @@ Packet::PacketBuilder Packet::GenerateIdPacketBuilder::set_response(const unsign
 	return static_cast<PacketBuilder>(*this);
 }
 
-Packet Packet::GenerateIdPacketBuilder::build(const std::string& data) {
+Packet Packet::GenerateIdPacketBuilder::build(const std::string data) {
 	Packet rt(std::vector<char>(data.begin(), data.end()));
 	if(rt.getOperation() != 0 || rt.getResponse() != 0 || rt.getId() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
 }
 
-Packet Packet::GenerateIdPacketBuilder::build(const std::vector<char>& data) {
+Packet Packet::GenerateIdPacketBuilder::build(const std::vector<char> data) {
 	Packet rt(data);
 	if(rt.getOperation() != 0 || rt.getResponse() != 0 || rt.getId() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
@@ -110,17 +139,17 @@ Packet::PacketBuilder Packet::StartPacketBuilder::set_response(const unsigned sh
 }
 
 Packet::CorrectAnswerPacketBuilder::CorrectAnswerPacketBuilder() : PacketBuilder() {
-	operation = 5;
+	operation = 6;
 }
 
-Packet Packet::StartPacketBuilder::build(const std::string& data) {
+Packet Packet::StartPacketBuilder::build(const std::string data) {
 	Packet rt(std::vector<char>(data.begin(), data.end()));
 	if(rt.getOperation() != 2 || rt.getResponse() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
 }
 
-Packet Packet::StartPacketBuilder::build(const std::vector<char>& data) {
+Packet Packet::StartPacketBuilder::build(const std::vector<char> data) {
 	Packet rt(data);
 	if(rt.getOperation() != 2 || rt.getResponse() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
@@ -138,14 +167,14 @@ Packet::PacketBuilder Packet::CorrectAnswerPacketBuilder::set_operation(const un
 	return static_cast<PacketBuilder>(*this);
 }
 
-Packet Packet::CorrectAnswerPacketBuilder::build(const std::string& data) {
+Packet Packet::CorrectAnswerPacketBuilder::build(const std::string data) {
 	Packet rt(std::vector<char>(data.begin(), data.end()));
 	if(rt.getOperation() != 5)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
 }
 
-Packet Packet::CorrectAnswerPacketBuilder::build(const std::vector<char>& data) {
+Packet Packet::CorrectAnswerPacketBuilder::build(const std::vector<char> data) {
 	Packet rt(data);
 	if(rt.getOperation() != 5)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
@@ -172,14 +201,14 @@ Packet::PacketBuilder Packet::EndPacketBuilder::set_response(const unsigned shor
 	return static_cast<PacketBuilder>(*this);
 }
 
-Packet Packet::EndPacketBuilder::build(const std::string& data) {
+Packet Packet::EndPacketBuilder::build(const std::string data) {
 	Packet rt(std::vector<char>(data.begin(), data.end()));
 	if(rt.getOperation() != 15 || rt.getResponse() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
 }
 
-Packet Packet::EndPacketBuilder::build(const std::vector<char>& data) {
+Packet Packet::EndPacketBuilder::build(const std::vector<char> data) {
 	Packet rt(data);
 	if(rt.getOperation() != 15 || rt.getResponse() != 0)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
@@ -240,11 +269,11 @@ Packet Packet::PacketBuilder::build() {
 	return Packet(operation, response, id);
 }
 
-Packet Packet::PacketBuilder::build(const std::string& data) {
+Packet Packet::PacketBuilder::build(const std::string data) {
 	return Packet(data.data(), data.size());
 }
 
-Packet Packet::PacketBuilder::build(const std::vector<char>& data) {
+Packet Packet::PacketBuilder::build(const std::vector<char> data) {
 	return Packet(data.data(), data.size());
 }
 
@@ -269,14 +298,14 @@ Packet::PacketBuilder Packet::ResponsePacketBuilder::set_operation(const unsigne
 	return static_cast<PacketBuilder>(*this);
 }
 
-Packet Packet::ResponsePacketBuilder::build(const std::string& data) {
+Packet Packet::ResponsePacketBuilder::build(const std::string data) {
 	Packet rt(std::vector<char>(data.begin(), data.end()));
 	if(rt.getOperation() != 3)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
 }
 
-Packet Packet::ResponsePacketBuilder::build(const std::vector<char>& data) {
+Packet Packet::ResponsePacketBuilder::build(const std::vector<char> data) {
 	Packet rt(data);
 	if(rt.getOperation() != 3)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
@@ -298,14 +327,14 @@ Packet::PacketBuilder Packet::AssayPacketBuilder::set_operation(const unsigned s
 	return static_cast<PacketBuilder>(*this);
 }
 
-Packet Packet::AssayPacketBuilder::build(const std::string& data) {
+Packet Packet::AssayPacketBuilder::build(const std::string data) {
 	Packet rt(std::vector<char>(data.begin(), data.end()));
 	if(rt.getOperation() != 3)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze
 	return rt;
 }
 
-Packet Packet::AssayPacketBuilder::build(const std::vector<char>& data) {
+Packet Packet::AssayPacketBuilder::build(const std::vector<char> data) {
 	Packet rt(data);
 	if(rt.getOperation() != 3)
 		throw std::exception("Invalid packet!!!!"); // poprawiæ na lepsze

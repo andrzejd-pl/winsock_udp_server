@@ -20,6 +20,7 @@ void UDPSocket::SendTo(const std::string& address, unsigned short port, const ch
 	/*add.sin_addr.s_addr = */
 	InetPton(AF_INET, address.c_str(), &add.sin_addr.s_addr);
 	add.sin_port = htons(port);
+	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer, len, flags, reinterpret_cast<SOCKADDR *>(&add), sizeof(add));
 	if(ret < 0)
 		throw std::system_error(WSAGetLastError(), std::system_category(), "sendto failed");
@@ -31,6 +32,7 @@ void UDPSocket::SendTo(const std::string& address, unsigned short port, const st
 	/*add.sin_addr.s_addr = */
 	InetPton(AF_INET, address.c_str(), &add.sin_addr.s_addr);
 	add.sin_port = htons(port);
+	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer.data(), buffer.size(), flags, reinterpret_cast<SOCKADDR *>(&add), sizeof(add));
 	if(ret < 0)
 		throw std::system_error(WSAGetLastError(), std::system_category(), "sendto failed");
@@ -42,24 +44,28 @@ void UDPSocket::SendTo(const std::string& address, unsigned short port, const st
 	/*add.sin_addr.s_addr = */
 	InetPton(AF_INET, address.c_str(), &add.sin_addr.s_addr);
 	add.sin_port = htons(port);
+	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer.data(), buffer.size(), flags, reinterpret_cast<SOCKADDR *>(&add), sizeof(add));
 	if(ret < 0)
 		throw std::system_error(WSAGetLastError(), std::system_category(), "sendto failed");
 }
 
 void UDPSocket::SendTo(sockaddr_in& address, const char* buffer, int len, int flags) {
+	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer, len, flags, reinterpret_cast<SOCKADDR *>(&address), sizeof(address));
 	if(ret < 0)
 		throw std::system_error(WSAGetLastError(), std::system_category(), "sendto failed");
 }
 
 void UDPSocket::SendTo(sockaddr_in& address, const std::vector<char>& buffer, int flags) {
+	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer.data(), buffer.size(), flags, reinterpret_cast<SOCKADDR *>(&address), sizeof(address));
 	if(ret < 0)
 		throw std::system_error(WSAGetLastError(), std::system_category(), "sendto failed");
 }
 
 void UDPSocket::SendTo(sockaddr_in& address, const std::string& buffer, int flags) {
+	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer.data(), buffer.size(), flags, reinterpret_cast<SOCKADDR *>(&address), sizeof(address));
 	if(ret < 0)
 		throw std::system_error(WSAGetLastError(), std::system_category(), "sendto failed");

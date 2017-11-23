@@ -16,7 +16,7 @@ private:
 	Packet() : operation(0), response(0), id(0) {}
 
 	Packet(const char* rawData, const unsigned short size);
-	Packet(const std::vector<char>& rawData);
+	Packet(const std::vector<char> rawData);
 public:
 
 	std::string convertToSend() const;
@@ -39,8 +39,8 @@ public:
 		virtual PacketBuilder set_id(const unsigned short id);
 
 		Packet build();
-		virtual Packet build(const std::string& data);
-		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
 		virtual Packet build(const char* data, const unsigned short size);
 
 		virtual ~PacketBuilder() {}
@@ -62,8 +62,21 @@ public:
 		virtual PacketBuilder set_response(const unsigned short response);
 
 
-		virtual Packet build(const std::string& data);
-		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
+		virtual Packet build(const char* data, const unsigned short size);
+
+	};
+
+	class AnswerPacketBuilder : public PacketBuilder {
+	public:
+		AnswerPacketBuilder();
+
+		virtual PacketBuilder set_operation(const unsigned short operation);
+
+
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
 		virtual Packet build(const char* data, const unsigned short size);
 
 	};
@@ -75,8 +88,8 @@ public:
 		virtual PacketBuilder set_operation(const unsigned short operation);
 		virtual PacketBuilder set_response(const unsigned short response);
 
-		virtual Packet build(const std::string& data);
-		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
 		virtual Packet build(const char* data, const unsigned short size);
 	};
 
@@ -87,8 +100,8 @@ public:
 		virtual PacketBuilder set_operation(const unsigned short operation);
 		virtual PacketBuilder set_response(const unsigned short response);
 
-		virtual Packet build(const std::string& data);
-		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
 		virtual Packet build(const char* data, const unsigned short size);
 	};
 
@@ -98,8 +111,8 @@ public:
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
 
-		virtual Packet build(const std::string& data);
-		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
 		virtual Packet build(const char* data, const unsigned short size);
 	};
 
@@ -110,8 +123,8 @@ public:
 		virtual PacketBuilder set_operation(const unsigned short operation);
 		virtual PacketBuilder set_response(const unsigned short response);
 
-		virtual Packet build(const std::string& data);
-		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
 		virtual Packet build(const char* data, const unsigned short size);
 	};
 
@@ -121,8 +134,8 @@ public:
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
 
-		virtual Packet build(const std::string& data);
-		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
 		virtual Packet build(const char* data, const unsigned short size);
 	};
 
@@ -132,8 +145,8 @@ public:
 
 		virtual PacketBuilder set_operation(const unsigned short operation);
 
-		virtual Packet build(const std::string& data);
-		virtual Packet build(const std::vector<char>& data);
+		virtual Packet build(const std::string data);
+		virtual Packet build(const std::vector<char> data);
 		virtual Packet build(const char* data, const unsigned short size);
 	};
 };
