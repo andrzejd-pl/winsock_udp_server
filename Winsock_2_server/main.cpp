@@ -12,17 +12,26 @@
 	- wyj¹tki i ³apanie wyj¹tków (zmiana w builderach z exception na w³asny autorski wyj¹tek)
 	- w¹tki - 1 zarz¹dzaj¹cy - czyli main i 2 dla 2 klientów
 	- klasa klienta
+	- poprawiæ w AsynchronousQueue oczekiwanie na nowy produkt
+	- 
 
-	Buildery:
-	GenerateId - Generowanie id (0 - 0000)
-	Expect - Oczekiwanie (1 - 0001)
-	Start - Start rozgrywki (2 - 0010)
-	Response - przes³anie liczby L (3 - 0011)
-	Assay - przes³anie liczby prób (4 - 0100)
-	Answer - Przes³anie odpowiedzi (5 - 0101)
-	CorrectAnswer - Przes³anie komunikatu o wygranej/przegranej/kolejnej próbie (6 - 0110)
-	Ack - Potwierdzenie przes³ania pakietu (7 - 0111)
-	End - Koniec po³¹czenia (15 - 1111)
+	pole: OOOO RRRI IIIU UUUU
+	o - bity operacji
+	r - bity odpowiedzi
+	i - bity id
+	u - bity uzupe³nienia
+
+
+	Buildery pakietów ([S - pakiet wysy³any przez serwer, K- pakiet wysy³any przez klienta]):
+	GenerateId - Generowanie id (0 - 0000) [K, S]
+	Expect - Oczekiwanie (1 - 0001) [S]
+	Start - Start rozgrywki (2 - 0010) [S]
+	Response - przes³anie liczby L (3 - 0011) [K]
+	Assay - przes³anie liczby prób (4 - 0100) [S]
+	Answer - Przes³anie odpowiedzi (5 - 0101) [K]
+	CorrectAnswer - Przes³anie komunikatu o wygranej/przegranej/kolejnej próbie (6 - 0110) [S]
+	Ack - Potwierdzenie przes³ania pakietu (7 - 0111) [K, S]
+	End - Koniec po³¹czenia (15 - 1111) [K, S]
 
 */
 

@@ -1,46 +1,61 @@
 #include "Client.h"
-#include "Packet.h"
-#include <WinSock2.h>
-#include <WS2tcpip.h>
-#include <string>
+#include <random>
 
 #pragma comment (lib, "Ws2_32.lib")
 
-Client::Client(UDPSocket& main_sock, const unsigned short id) : add(), sock(main_sock), id(default_id) {
-	std::vector<char> buffer;
-	add = sock.RecvFrom(buffer, buffer_size);
-	Packet generateId = Packet::GenerateIdPacketBuilder().build(buffer);
-	sendAckMessage();
-
-	this->id = id;
-	sendMessage(Packet::GenerateIdPacketBuilder());
-	Packet ack = receiveMessage();
+int randomInt(int min, int max) {
+	static std::random_device rd;
+	std::uniform_int_distribution<int> d(min, max);
+	return d(rd);
 }
 
-void Client::sendMessage(Packet::PacketBuilder message) {
-	sock.SendTo(add, message.set_id(id).build().convertToSend());
+void Client::generateId(const Packet& packet) {
+	queue.pushSendPacket(Packet::AckPacketBuilder().set_id(0).build());
+	id = randomInt(0, 15); // TODO: poprawiæ aby wykluczaæ u¿yte ju¿ id
+	queue.pushSendPacket(Packet::GenerateIdPacketBuilder().set_id(id).build());
 }
 
-Packet Client::receiveMessage() {
-	return Packet::PacketBuilder().build(sock.RecvFrom(add, buffer_size));
+void Client::assay(const Packet& packet) {
+
 }
 
-Packet Client::receiveAckMessage()
-{
-	return Packet::PacketBuilder().build(sock.RecvFrom(add, buffer_size));
-}
 
-std::vector<char> Client::getAddress() {
-	std::vector<char> ip(20);
-	InetNtop(AF_INET, reinterpret_cast<void *>(&add.sin_addr.s_addr), ip.data(), ip.size());
-	return ip;
-}
+Client::Client(AsynchronousQueue& queue, const unsigned short id) : id(id), queue(queue) {}
 
-std::string Client::getPort() const {
-	unsigned short port = htons(add.sin_port);
-	return std::to_string(port);
-}
-
-void Client::sendAckMessage() {
-	sendMessage(Packet::AckPacketBuilder());
+void Client::run() {
+	while(true) {
+		Packet receivePacket = queue.popReceivedPacket();
+		switch(receivePacket.getOperation()) {
+			case 0:
+				{
+					generateId(receivePacket);
+					break;
+				}
+			case 3:
+				{
+					response(receivePacket);
+					break;
+				}
+			case 4:
+				{
+					assay(receivePacket);
+					break;
+				}
+			case 5:
+				{
+					answer(receivePacket);
+					break;
+				}
+			case 6:
+				{
+					correctAnswer(receivePacket);
+					break;
+				}
+			case 15:
+				{
+					end(receivePacket);
+					break;
+				}
+		}
+	}
 }

@@ -111,6 +111,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AsynchronousQueue.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Packet.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="WSASession.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsynchronousQueue.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="UDPSocket.h" />

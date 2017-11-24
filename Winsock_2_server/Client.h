@@ -1,27 +1,31 @@
 #pragma once
-#include "UDPSocket.h"
-#include "Packet.h"
+#include "AsynchronousQueue.h"
+#include <WinSock2.h>
 
 class Packet;
 
 class Client {
 private:
-	const unsigned short buffer_size = 2;
-	const unsigned short default_id = 0;
-	sockaddr_in add;
-	UDPSocket& sock;
 	unsigned short id;
+	AsynchronousQueue& queue;
+	sockaddr_in addr;
+
+	void generateId(const Packet& packet);
+	void expect(const Packet& packet);
+	void start(const Packet& packet);
+	void response(const Packet& packet);
+	void assay(const Packet& packet);
+	void answer(const Packet& packet);
+	void correctAnswer(const Packet& packet);
+	void ack(const Packet& packet);
+	void end(const Packet& packet);
 public:
-	Client(UDPSocket& main_sock, const unsigned short id);
+	Client(AsynchronousQueue& queue, const unsigned short id);
 	~Client() {}
 
-	void sendMessage(Packet::PacketBuilder message);
-	void sendAckMessage();
+	void run();
 
-	Packet receiveMessage();
-	Packet receiveAckMessage();
-
-	std::vector<char> getAddress();
-	std::string getPort() const;
+	unsigned short getId() const;
+	sockaddr_in getAddressStructure() const;
 };
 
