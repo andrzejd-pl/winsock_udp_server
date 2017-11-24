@@ -23,5 +23,7 @@ public:
 
 	std::vector<char> getAddress();
 	std::string getPort() const;
+
+	void run();
 };
 

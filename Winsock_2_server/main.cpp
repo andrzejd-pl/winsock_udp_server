@@ -4,6 +4,8 @@
 #include "Packet.h"
 #include <vector>
 #include "Client.h"
+#include <thread>
+#include <mutex>
 
 #pragma comment (lib, "Ws2_32.lib")
 
@@ -26,6 +28,12 @@
 
 */
 
+void run(Client* c, std::mutex* mux) {
+	mux->lock();
+	c->run();
+	mux->unlock();
+}
+
 int main() {
 	try {
 
@@ -36,49 +44,14 @@ int main() {
 		unsigned int client_id = 1;
 
 		socket.Bind(100);
-		while(true) {
-			Client client(socket, client_id++);
-			Packet response = client.receiveMessage();
-			client.sendAckMessage();
-			short numberL = response.getResponse();
+		Client client(socket, client_id++);
 
-			client.sendMessage(Packet::ExpectPacketBuilder());
-			Packet ack = client.receiveAckMessage();
+		std::mutex mutex;
+		std::thread th_client(run, &client, &mutex);
+		th_client.detach();
 
-			numberL /= 2;
-
-			client.sendMessage(Packet::AssayPacketBuilder().set_response(numberL));
-			ack = client.receiveAckMessage();
-
-			client.sendMessage(Packet::StartPacketBuilder());
-			ack = client.receiveAckMessage();
-
-			do {
-				
-				response = client.receiveMessage();
-				client.sendAckMessage();
-
-				numberL--;
-
-
-				if(response.getResponse() == 5) {
-					client.sendMessage(Packet::PacketBuilder().set_operation(6).set_response(2));
-					ack = client.receiveAckMessage();
-				}
-				else if (numberL <= 0) {
-					client.sendMessage(Packet::PacketBuilder().set_operation(6).set_response(0));
-					ack = client.receiveAckMessage();
-				}
-				else {
-					client.sendMessage(Packet::PacketBuilder().set_operation(6).set_response(1));
-					ack = client.receiveAckMessage();
-				}
-			} while(response.getResponse() != 5 && numberL > 0);
-
-			Packet end = client.receiveMessage();
-			client.sendAckMessage();
-
-		}
+		mutex.lock();
+		mutex.unlock();
 	}
 	catch(const std::system_error& e) {
 		std::cout << e.what();

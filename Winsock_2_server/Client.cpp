@@ -25,8 +25,7 @@ Packet Client::receiveMessage() {
 	return Packet::PacketBuilder().build(sock.RecvFrom(add, buffer_size));
 }
 
-Packet Client::receiveAckMessage()
-{
+Packet Client::receiveAckMessage() {
 	return Packet::PacketBuilder().build(sock.RecvFrom(add, buffer_size));
 }
 
@@ -39,6 +38,49 @@ std::vector<char> Client::getAddress() {
 std::string Client::getPort() const {
 	unsigned short port = htons(add.sin_port);
 	return std::to_string(port);
+}
+
+void Client::run() {
+	Packet response = this->receiveMessage();
+	this->sendAckMessage();
+	short numberL = response.getResponse();
+
+	this->sendMessage(Packet::ExpectPacketBuilder());
+	Packet ack = this->receiveAckMessage();
+
+	numberL /= 2;
+
+	this->sendMessage(Packet::AssayPacketBuilder().set_response(numberL));
+	ack = this->receiveAckMessage();
+
+	this->sendMessage(Packet::StartPacketBuilder());
+	ack = this->receiveAckMessage();
+
+	do {
+
+		response = this->receiveMessage();
+		this->sendAckMessage();
+
+		numberL--;
+
+
+		if(response.getResponse() == 5) {
+			this->sendMessage(Packet::PacketBuilder().set_operation(6).set_response(2));
+			ack = this->receiveAckMessage();
+		}
+		else if(numberL <= 0) {
+			this->sendMessage(Packet::PacketBuilder().set_operation(6).set_response(0));
+			ack = this->receiveAckMessage();
+		}
+		else {
+			this->sendMessage(Packet::PacketBuilder().set_operation(6).set_response(1));
+			ack = this->receiveAckMessage();
+		}
+	} while(response.getResponse() != 5 && numberL > 0);
+
+	Packet end = this->receiveMessage();
+	this->sendAckMessage();
+
 }
 
 void Client::sendAckMessage() {
