@@ -111,11 +111,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Packet.cpp" />
     <ClCompile Include="UDPSocket.cpp" />
     <ClCompile Include="WSASession.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="Packet.h" />
     <ClInclude Include="UDPSocket.h" />
     <ClInclude Include="WSASession.h" />
   </ItemGroup>
