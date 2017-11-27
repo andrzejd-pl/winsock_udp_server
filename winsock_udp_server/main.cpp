@@ -31,23 +31,31 @@
 
 */
 
+void run(Client* c, std::mutex* mux) {
+	mux->lock();
+	c->run();
+	mux->unlock();
+}
+
 int main() {
 	try {
-		WSASession Session;
-		UDPSocket Socket;
-		char buffer[100];
 
-		Socket.Bind(100);
-		while (1) {
-			sockaddr_in add = Socket.RecvFrom(buffer, sizeof(buffer));
+		WSASession session;
+		UDPSocket socket;
+		std::vector<char> buffer(2);
 
+		unsigned int client_id = 1;
 
+		socket.Bind(100);
+		Client client(socket, client_id++);
 
-			std::string input(buffer);
-			std::reverse(std::begin(input), std::end(input));
-			Socket.SendTo(add, input.c_str(), input.size());
+		std::mutex mutex;
+		std::thread th_client(run, &client, &mutex);
+		th_client.detach();
 
-		}
+		mutex.lock();
+		mutex.unlock();
+
 	}
 	catch(const std::system_error& e) {
 		std::cout << e.what();

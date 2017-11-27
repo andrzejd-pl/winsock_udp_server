@@ -25,6 +25,6 @@ public:
 
 	std::vector<char> RecvFrom(sockaddr_in& from, const int len, const int flags = 0);
 
+
 	void Bind(unsigned short port);
 };
-
