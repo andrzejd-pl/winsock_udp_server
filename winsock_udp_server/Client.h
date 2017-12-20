@@ -7,6 +7,8 @@ class Packet;
 class Client {
 private:
 	unsigned short id;
+	unsigned short numberL;
+	unsigned short numberOfAttempt;
 	AsynchronousQueue& queue;
 	sockaddr_in addr;
 
@@ -19,6 +21,8 @@ private:
 	void correctAnswer(const Packet& packet);
 	void ack(const Packet& packet);
 	void end(const Packet& packet);
+
+	unsigned short getNumberOfAttempt();
 public:
 	Client(AsynchronousQueue& queue, const unsigned short id);
 	~Client() {}
@@ -27,5 +31,8 @@ public:
 
 	unsigned short getId() const;
 	sockaddr_in getAddressStructure() const;
+	unsigned short getNumberL() const;
+
+	void setNumberOfAttempt(const unsigned short number);
 };
 

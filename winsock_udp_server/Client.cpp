@@ -15,6 +15,11 @@ void Client::generateId(const Packet& packet) {
 	queue.pushSendPacket(Packet::GenerateIdPacketBuilder().set_id(id).build());
 }
 
+void Client::response(const Packet& packet) {
+	numberL = packet.getResponse();
+	queue.pushSendPacket(Packet::AckPacketBuilder().set_id(id).build());
+}
+
 void Client::assay(const Packet& packet) {
 
 }
