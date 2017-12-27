@@ -20,7 +20,6 @@ Packet AsynchronousQueue::popSendPacket() {
 }
 
 void AsynchronousQueue::pushReceivedPacket(const Packet& packet) {
-	receivedCv.wait(receivedMutex, [] {return !receivedPackets.empty(); });
 	receivedMutex.lock();
 	receivedPackets.push(packet);
 	receivedMutex.unlock();
