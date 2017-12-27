@@ -6,8 +6,8 @@ AsynchronousQueue::AsynchronousQueue() {}
 
 Packet AsynchronousQueue::popReceivedPacket() {
 	std::lock_guard<std::mutex> lock(receivedMutex);
-	Packet rt = receivedPackets.front();
 
+	Packet rt = receivedPackets.front();
 	return rt;
 }
 
@@ -20,7 +20,7 @@ Packet AsynchronousQueue::popSendPacket() {
 }
 
 void AsynchronousQueue::pushReceivedPacket(const Packet& packet) {
-	while(!receivedPackets.empty()); // TODO: to poprawiæ
+	receivedCv.wait(receivedMutex, [] {return !receivedPackets.empty(); });
 	receivedMutex.lock();
 	receivedPackets.push(packet);
 	receivedMutex.unlock();
