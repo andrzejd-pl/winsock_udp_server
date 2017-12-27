@@ -6,7 +6,6 @@ AsynchronousQueue::AsynchronousQueue() {}
 
 Packet AsynchronousQueue::popReceivedPacket() {
 	std::lock_guard<std::mutex> lock(receivedMutex);
-
 	Packet rt = receivedPackets.front();
 	return rt;
 }
