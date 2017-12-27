@@ -25,6 +25,21 @@ public:
 	unsigned short getResponse() const;
 	unsigned short getId() const;
 
+
+	friend bool operator==(const Packet& lhs, const Packet& rhs)
+	{
+		return lhs.operation == rhs.operation
+			&& lhs.response == rhs.response
+			&& lhs.id == rhs.id;
+	}
+
+	friend bool operator!=(const Packet& lhs, const Packet& rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	std::string ToString() const;
+
 	class PacketBuilder {
 	protected:
 		unsigned short operation;

@@ -36,7 +36,7 @@
 */
 
 int main() {
-	try {
+	/*try {
 
 		WSASession session;
 		UDPSocket socket;
@@ -91,6 +91,6 @@ int main() {
 	}
 	catch(const std::system_error& e) {
 		std::cout << e.what();
-	}
+	}*/
 	return 0;
 }

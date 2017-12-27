@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winsock_udp_server", "winsock_udp_server\winsock_udp_server.vcxproj", "{5AC3FBF9-2975-4812-9856-07AC2BC216E3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcxproj", "{C47E6A50-59BB-4D13-8768-ACBC04C4685D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{5AC3FBF9-2975-4812-9856-07AC2BC216E3}.Release|x64.Build.0 = Release|x64
 		{5AC3FBF9-2975-4812-9856-07AC2BC216E3}.Release|x86.ActiveCfg = Release|Win32
 		{5AC3FBF9-2975-4812-9856-07AC2BC216E3}.Release|x86.Build.0 = Release|Win32
+		{C47E6A50-59BB-4D13-8768-ACBC04C4685D}.Debug|x64.ActiveCfg = Debug|x64
+		{C47E6A50-59BB-4D13-8768-ACBC04C4685D}.Debug|x64.Build.0 = Debug|x64
+		{C47E6A50-59BB-4D13-8768-ACBC04C4685D}.Debug|x86.ActiveCfg = Debug|Win32
+		{C47E6A50-59BB-4D13-8768-ACBC04C4685D}.Debug|x86.Build.0 = Debug|Win32
+		{C47E6A50-59BB-4D13-8768-ACBC04C4685D}.Release|x64.ActiveCfg = Release|x64
+		{C47E6A50-59BB-4D13-8768-ACBC04C4685D}.Release|x64.Build.0 = Release|x64
+		{C47E6A50-59BB-4D13-8768-ACBC04C4685D}.Release|x86.ActiveCfg = Release|Win32
+		{C47E6A50-59BB-4D13-8768-ACBC04C4685D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

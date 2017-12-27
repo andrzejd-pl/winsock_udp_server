@@ -250,6 +250,10 @@ unsigned short Packet::getId() const {
 	return id;
 }
 
+std::string Packet::ToString() const {
+	return this->convertToSend();
+}
+
 Packet::PacketBuilder Packet::PacketBuilder::set_operation(const unsigned short operation) {
 	this->operation = operation;
 	return *this;

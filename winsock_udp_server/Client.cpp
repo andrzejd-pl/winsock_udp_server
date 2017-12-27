@@ -15,15 +15,44 @@ void Client::generateId(const Packet& packet) {
 	queue.pushSendPacket(Packet::GenerateIdPacketBuilder().set_id(id).build());
 }
 
+void Client::expect(const Packet& packet) { 
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+}
+
+void Client::start(const Packet& packet) {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+}
+
 void Client::response(const Packet& packet) {
 	numberL = packet.getResponse();
 	queue.pushSendPacket(Packet::AckPacketBuilder().set_id(id).build());
 }
 
 void Client::assay(const Packet& packet) {
-
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
 }
 
+void Client::answer(const Packet& packet) {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+}
+
+
+void Client::correctAnswer(const Packet& packet) {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+}
+
+void Client::ack(const Packet& packet) {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+}
+
+void Client::end(const Packet& packet) {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+}
+
+unsigned short Client::getNumberOfAttempt() {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+	return 0;
+}
 
 Client::Client(AsynchronousQueue& queue, const unsigned short id) : id(id), queue(queue) {}
 
@@ -63,4 +92,22 @@ void Client::run() {
 				}
 		}
 	}
+}
+
+unsigned short Client::getId() const {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+	return 0;
+}
+
+sockaddr_in Client::getAddressStructure() const {
+	return addr;
+}
+
+unsigned short Client::getNumberL() const {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
+	return 0;
+}
+
+void Client::setNumberOfAttempt(const unsigned short number) {
+	//TODO: napisaæ metodê przetwarzaj¹c¹ pakiet
 }
