@@ -1,7 +1,8 @@
+#pragma once
 #include <WinSock2.h>
 
 #pragma comment (lib, "Ws2_32.lib")
-#pragma once
+
 
 class WSASession {
 private:

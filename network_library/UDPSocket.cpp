@@ -2,6 +2,7 @@
 #include <system_error>
 #include <WS2tcpip.h>
 
+#pragma comment (lib, "Ws2_32.lib")
 
 UDPSocket::UDPSocket() {
 	sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -18,7 +19,7 @@ void UDPSocket::SendTo(const std::string& address, unsigned short port, const ch
 	sockaddr_in add;
 	add.sin_family = AF_INET;
 	/*add.sin_addr.s_addr = */
-	InetPton(AF_INET, address.c_str(), &add.sin_addr.s_addr);
+	InetPton(AF_INET, PCWSTR(address.c_str()), &add.sin_addr.s_addr);
 	add.sin_port = htons(port);
 	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer, len, flags, reinterpret_cast<SOCKADDR *>(&add), sizeof(add));
@@ -30,7 +31,7 @@ void UDPSocket::SendTo(const std::string& address, unsigned short port, const st
 	sockaddr_in add;
 	add.sin_family = AF_INET;
 	/*add.sin_addr.s_addr = */
-	InetPton(AF_INET, address.c_str(), &add.sin_addr.s_addr);
+	InetPton(AF_INET, PCWSTR(address.c_str()), &add.sin_addr.s_addr);
 	add.sin_port = htons(port);
 	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer.data(), buffer.size(), flags, reinterpret_cast<SOCKADDR *>(&add), sizeof(add));
@@ -42,7 +43,7 @@ void UDPSocket::SendTo(const std::string& address, unsigned short port, const st
 	sockaddr_in add;
 	add.sin_family = AF_INET;
 	/*add.sin_addr.s_addr = */
-	InetPton(AF_INET, address.c_str(), &add.sin_addr.s_addr);
+	InetPton(AF_INET, PCWSTR(address.c_str()), &add.sin_addr.s_addr);
 	add.sin_port = htons(port);
 	for(int i = 0; i < 1000000; i++);
 	int ret = sendto(sock, buffer.data(), buffer.size(), flags, reinterpret_cast<SOCKADDR *>(&add), sizeof(add));

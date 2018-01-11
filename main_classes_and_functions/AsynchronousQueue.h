@@ -1,7 +1,7 @@
 #pragma once
 #include <queue>
-#include "Packet.h"
 #include <mutex>
+#include "../network_library/Packet.h"
 
 class AsynchronousQueue {
 private:

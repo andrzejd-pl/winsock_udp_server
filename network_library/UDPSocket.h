@@ -3,7 +3,6 @@
 #include <vector>
 
 #pragma comment (lib, "Ws2_32.lib")
-#pragma once
 
 class UDPSocket {
 private:

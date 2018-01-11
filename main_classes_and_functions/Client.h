@@ -2,6 +2,8 @@
 #include "AsynchronousQueue.h"
 #include <WinSock2.h>
 
+#pragma comment (lib, "Ws2_32.lib")
+
 class Packet;
 
 class Client {

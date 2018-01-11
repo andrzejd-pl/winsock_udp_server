@@ -1,7 +1,5 @@
 #include "AsynchronousQueue.h"
 
-
-
 AsynchronousQueue::AsynchronousQueue() {}
 
 Packet AsynchronousQueue::popReceivedPacket() {
