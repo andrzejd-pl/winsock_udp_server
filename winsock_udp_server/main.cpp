@@ -1,9 +1,9 @@
 #include <iostream>
-#include "WSASession.h"
-#include "UDPSocket.h"
-#include "Packet.h"
+#include "../network_library/WSASession.h"
+#include "../network_library/UDPSocket.h"
+#include "../network_library/Packet.h"
 #include <vector>
-#include "Client.h"
+#include "../main_classes_and_functions/Client.h"
 
 #pragma comment (lib, "Ws2_32.lib")
 
