@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "network_library", "network_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "main_classes_and_functions", "main_classes_and_functions\main_classes_and_functions.vcxproj", "{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "network_library_test", "network_library_test\network_library_test.vcxproj", "{4D09B8FD-A615-43E5-A485-85B3A21528C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Release|x64.Build.0 = Release|x64
 		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Release|x86.ActiveCfg = Release|Win32
 		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Release|x86.Build.0 = Release|Win32
+		{4D09B8FD-A615-43E5-A485-85B3A21528C3}.Debug|x64.ActiveCfg = Debug|x64
+		{4D09B8FD-A615-43E5-A485-85B3A21528C3}.Debug|x64.Build.0 = Debug|x64
+		{4D09B8FD-A615-43E5-A485-85B3A21528C3}.Debug|x86.ActiveCfg = Debug|Win32
+		{4D09B8FD-A615-43E5-A485-85B3A21528C3}.Debug|x86.Build.0 = Debug|Win32
+		{4D09B8FD-A615-43E5-A485-85B3A21528C3}.Release|x64.ActiveCfg = Release|x64
+		{4D09B8FD-A615-43E5-A485-85B3A21528C3}.Release|x64.Build.0 = Release|x64
+		{4D09B8FD-A615-43E5-A485-85B3A21528C3}.Release|x86.ActiveCfg = Release|Win32
+		{4D09B8FD-A615-43E5-A485-85B3A21528C3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
