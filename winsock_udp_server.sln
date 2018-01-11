@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winsock_udp_server", "winsock_udp_server\winsock_udp_server.vcxproj", "{5AC3FBF9-2975-4812-9856-07AC2BC216E3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "network_library", "network_library\network_library.vcxproj", "{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "main_classes_and_functions", "main_classes_and_functions\main_classes_and_functions.vcxproj", "{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +25,22 @@ Global
 		{5AC3FBF9-2975-4812-9856-07AC2BC216E3}.Release|x64.Build.0 = Release|x64
 		{5AC3FBF9-2975-4812-9856-07AC2BC216E3}.Release|x86.ActiveCfg = Release|Win32
 		{5AC3FBF9-2975-4812-9856-07AC2BC216E3}.Release|x86.Build.0 = Release|Win32
+		{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}.Debug|x64.ActiveCfg = Debug|x64
+		{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}.Debug|x64.Build.0 = Debug|x64
+		{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}.Debug|x86.ActiveCfg = Debug|Win32
+		{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}.Debug|x86.Build.0 = Debug|Win32
+		{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}.Release|x64.ActiveCfg = Release|x64
+		{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}.Release|x64.Build.0 = Release|x64
+		{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}.Release|x86.ActiveCfg = Release|Win32
+		{2CA3221A-4DBF-4EC8-9B97-22261E83F3E1}.Release|x86.Build.0 = Release|Win32
+		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Debug|x64.ActiveCfg = Debug|x64
+		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Debug|x64.Build.0 = Debug|x64
+		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Debug|x86.ActiveCfg = Debug|Win32
+		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Debug|x86.Build.0 = Debug|Win32
+		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Release|x64.ActiveCfg = Release|x64
+		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Release|x64.Build.0 = Release|x64
+		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Release|x86.ActiveCfg = Release|Win32
+		{E12CBE33-65BB-44FD-9EF7-57A41DF4FACE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

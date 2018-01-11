@@ -111,19 +111,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AsynchronousQueue.cpp" />
-    <ClCompile Include="Client.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Packet.cpp" />
-    <ClCompile Include="UDPSocket.cpp" />
-    <ClCompile Include="WSASession.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AsynchronousQueue.h" />
-    <ClInclude Include="Client.h" />
-    <ClInclude Include="Packet.h" />
-    <ClInclude Include="UDPSocket.h" />
-    <ClInclude Include="WSASession.h" />
+    <ProjectReference Include="..\main_classes_and_functions\main_classes_and_functions.vcxproj">
+      <Project>{e12cbe33-65bb-44fd-9ef7-57a41df4face}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\network_library\network_library.vcxproj">
+      <Project>{2ca3221a-4dbf-4ec8-9b97-22261e83f3e1}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
