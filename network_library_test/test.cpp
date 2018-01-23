@@ -1,6 +1,5 @@
 #define BOOST_TEST_MODULE NetLibTest
 #include <boost/test/included/unit_test.hpp>
-//#include "../network_library/UDPSocket.h"
 #include "../network_library/Packet.h"
 
 BOOST_AUTO_TEST_SUITE(PacketTest);
